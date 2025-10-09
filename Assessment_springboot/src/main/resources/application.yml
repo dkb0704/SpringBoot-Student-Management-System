@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/assessment?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: dkb4sb!!
+mybatis:
+  mapper-locations: classpath:mapper/*.xml #指定mapper.xml文件位置
+  type-aliases-package: com.entity

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CourseMapper">
+    <select id="listCourse" resultType="Course">
+        select * from course
+    </select>
+
+    <insert id="insertCourse">
+        INSERT INTO `course` (`name`, `description`, `teacher_id`, `max_students`) VALUES
+        (#{name}, #{description}, #{teacher_id}, #{max_students})
+    </insert>
+
+    <update id="updateCourse">
+        UPDATE `course`
+        <set>
+            <!-- 非null，则更新 -->
+            <if test="name != null">name = #{name},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="max_students != null">max_students = #{max_students},</if>
+            <if test="current_students != null">current_students = #{current_students},</if>
+            <if test="status != null">status = #{status},</if>
+            <!-- 自动更新时间（ -->
+            updated_time = CURRENT_TIMESTAMP
+        </set>
+        WHERE id = #{id}  <!-- 必须根据ID更新 -->
+    </update>
+    <select id="searchCourseById" resultType="com.entity.Course">
+        select `id`,`name`, `description`, `teacher_id`, `max_students`,`current_students`,`status` from course where id = #{id}
+    </select>
+    <delete id="deleteCourseById">
+        delete from `course` where id = #{id}
+    </delete>
+
+</mapper>
